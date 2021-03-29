@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class SedanVehicleService implements VehicleService {
@@ -39,13 +38,13 @@ public class SedanVehicleService implements VehicleService {
             throw new RestApiRequestException(ErrorMessages.CHECK_IN_IS_ALREADY_EXIST);
         }
         Optional<ParkingArea> parkingArea = parkingAreaDAO.findById(checkInOut.getParkingArea().getId());
-        if(!parkingArea.isPresent()){
+        if (!parkingArea.isPresent()) {
             throw new RestApiRequestException(ErrorMessages.PARKING_AREA_IS_NOT_FOUND);
         }
         Integer parkingAreaCapacity = parkingArea.get().getCapacity();
         int checkInCountInParkingArea = checkInOutDAO.countCheckInOutByParkingAreaIdAndCheckOutDateIsNull(checkInOut.getParkingArea().getId());
 
-        if(parkingAreaCapacity == checkInCountInParkingArea){
+        if (parkingAreaCapacity == checkInCountInParkingArea) {
             throw new RestApiRequestException(ErrorMessages.FULL_CAPACITY_IN_PARKING_AREA);
         }
 
@@ -58,9 +57,7 @@ public class SedanVehicleService implements VehicleService {
         CheckInOut checkInOut = checkInOutDAO.findCheckInOutByVehicleAndCheckOutDateIsNull(vehicle);
         checkInOut.setCheckOutDate(new Timestamp(System.currentTimeMillis()));
         if (checkInOut.getVehicle() instanceof Sedan) {
-            Long diffMinutes = checkInOut.getCheckOutDate().getTime() - checkInOut.getCheckInDate().getTime();
-            diffMinutes = TimeUnit.MILLISECONDS.toMinutes(diffMinutes);
-            Double diffHours = (double) diffMinutes / 60;
+            Double diffHours = diffHours(checkInOut.getCheckOutDate().getTime(), checkInOut.getCheckInDate().getTime());
             for (PriceListDetail priceListDetail : checkInOut.getParkingArea().getPriceList().getPriceListDetails()) {
                 String[] hours = priceListDetail.getHour().split("-");
                 if (Integer.parseInt(hours[0]) <= diffHours && Integer.parseInt(hours[1]) >= diffHours) {

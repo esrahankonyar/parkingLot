@@ -1,11 +1,12 @@
 package com.huawei.parkinglot.entity.vehicle;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "vehicle")
-//TODO define inheritance
-public class SUV extends Vehicle {
+@DiscriminatorValue("SUV")
+public class Suv extends Vehicle {
 
 }
