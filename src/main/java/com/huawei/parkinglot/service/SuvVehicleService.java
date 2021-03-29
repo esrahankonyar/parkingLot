@@ -12,12 +12,14 @@ import com.huawei.parkinglot.entity.vehicle.Vehicle;
 import com.huawei.parkinglot.exceptions.RestApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class SuvVehicleService implements VehicleService {
 
 	@Autowired

@@ -7,7 +7,7 @@ import com.huawei.parkinglot.dao.vehicle.VehicleDAO;
 import com.huawei.parkinglot.entity.CheckInOut;
 import com.huawei.parkinglot.entity.ParkingArea;
 import com.huawei.parkinglot.entity.PriceListDetail;
-import com.huawei.parkinglot.entity.vehicle.Sedan;
+import com.huawei.parkinglot.entity.vehicle.Minivan;
 import com.huawei.parkinglot.entity.vehicle.Vehicle;
 import com.huawei.parkinglot.exceptions.RestApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +20,19 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class SedanVehicleService implements VehicleService {
+public class MinivanVehicleService implements VehicleService {
 
     @Autowired
     CheckInOutDAO checkInOutDAO;
 
     @Autowired
-    VehicleDAO sedanDAO;
+    VehicleDAO minivanDao;
 
     @Autowired
     ParkingAreaDAO parkingAreaDAO;
 
     @Override
     public void checkIn(CheckInOut checkInOut) {
-
         CheckInOut isExistCheckIn = checkInOutDAO.findCheckInOutByVehicleAndCheckOutDateIsNull(checkInOut.getVehicle());
 
         if (isExistCheckIn != null) {
@@ -58,7 +57,7 @@ public class SedanVehicleService implements VehicleService {
     public void checkOut(Vehicle vehicle) {
         CheckInOut checkInOut = checkInOutDAO.findCheckInOutByVehicleAndCheckOutDateIsNull(vehicle);
         checkInOut.setCheckOutDate(new Timestamp(System.currentTimeMillis()));
-        if (checkInOut.getVehicle() instanceof Sedan) {
+        if (checkInOut.getVehicle() instanceof Minivan) {
             Double diffHours = diffHours(checkInOut.getCheckOutDate().getTime(), checkInOut.getCheckInDate().getTime());
             for (PriceListDetail priceListDetail : checkInOut.getParkingArea().getPriceList().getPriceListDetails()) {
                 String[] hours = priceListDetail.getHour().split("-");
@@ -79,12 +78,12 @@ public class SedanVehicleService implements VehicleService {
     }
 
     private Vehicle vehicleRecordControl(String licencePlate) {
-        Optional<Vehicle> vehicle = sedanDAO.findById(licencePlate);
+        Optional<Vehicle> vehicle = minivanDao.findById(licencePlate);
 
         if (vehicle.isEmpty()) {
-            Sedan sedan = new Sedan();
-            sedan.setLicensePlate(licencePlate);
-            return sedanDAO.save(sedan);
+            Minivan minivan = new Minivan();
+            minivan.setLicensePlate(licencePlate);
+            return minivanDao.save(minivan);
         }
 
         return vehicle.get();
