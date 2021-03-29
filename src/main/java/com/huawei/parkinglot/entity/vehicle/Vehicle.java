@@ -1,16 +1,16 @@
 package com.huawei.parkinglot.entity.vehicle;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Data;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "vehicle")
-//TODO define inheritance
+@Data
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public class Vehicle {
 
-	@Id
-	private String licensePlate;
-	
-	//TODO getters setters
+    @Id
+    private String licensePlate;
+
 }
