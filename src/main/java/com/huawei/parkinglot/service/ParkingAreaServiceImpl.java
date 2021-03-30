@@ -42,11 +42,6 @@ public class ParkingAreaServiceImpl implements ParkingAreaService {
         return parkingAreaDAO.findParkingAreasByName(name);
     }
 
-    @Override
-    public Double getDailyIncomeOfParkingArea(Date date) {
-        return null;
-    }
-
     private boolean totalHoursIs24(List<PriceListDetail> priceList) {
         int totalHour = 0;
         for (PriceListDetail detail : priceList) {
