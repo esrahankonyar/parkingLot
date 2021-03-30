@@ -5,13 +5,14 @@ import com.huawei.parkinglot.entity.vehicle.Vehicle;
 import com.huawei.parkinglot.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/suv")
+@RequestMapping(value = "/suv", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SuvVehicleController implements VehicleController {
 
     @Autowired
@@ -31,7 +32,7 @@ public class SuvVehicleController implements VehicleController {
     }
 
     @Override
-    @GetMapping(value = "/getParkingDetails")
+    @GetMapping(value = "/getParkingDetails" , consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CheckInOut> getParkingDetails(@RequestParam String licensePlate) {
         return vehicleService.getParkingDetails(licensePlate);
     }

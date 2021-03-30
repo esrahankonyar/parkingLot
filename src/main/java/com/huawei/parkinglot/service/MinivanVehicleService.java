@@ -62,7 +62,7 @@ public class MinivanVehicleService implements VehicleService {
             for (PriceListDetail priceListDetail : checkInOut.getParkingArea().getPriceList().getPriceListDetails()) {
                 String[] hours = priceListDetail.getHour().split("-");
                 if (Integer.parseInt(hours[0]) <= diffHours && Integer.parseInt(hours[1]) >= diffHours) {
-                    checkInOut.setFee(priceListDetail.getPrice());
+                    checkInOut.setFee(priceListDetail.getPrice()*1.20);
                     break;
                 }
             }
