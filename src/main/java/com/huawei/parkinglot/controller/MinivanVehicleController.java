@@ -32,7 +32,7 @@ public class MinivanVehicleController implements VehicleController {
     }
 
     @Override
-    @GetMapping(value = "/getParkingDetails", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getParkingDetails")
     public List<CheckInOut> getParkingDetails(@RequestParam String licensePlate) {
         return vehicleService.getParkingDetails(licensePlate);
     }

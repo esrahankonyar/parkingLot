@@ -31,7 +31,7 @@ public class ParkingAreaController {
         parkingAreaService.deleteParkingArea(id);
     }
 
-    @GetMapping(value = "/getParkinAreaByName/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getParkinAreaByName/{name}")
     public List<ParkingArea> getParkinAreaByName(@RequestParam String name) {
         return parkingAreaService.getParkingAreaByName(name);
     }
