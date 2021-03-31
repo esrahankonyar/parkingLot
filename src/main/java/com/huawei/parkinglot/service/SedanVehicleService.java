@@ -10,6 +10,8 @@ import com.huawei.parkinglot.entity.PriceListDetail;
 import com.huawei.parkinglot.entity.vehicle.Sedan;
 import com.huawei.parkinglot.entity.vehicle.Vehicle;
 import com.huawei.parkinglot.exceptions.RestApiRequestException;
+import lombok.AccessLevel;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +25,15 @@ import java.util.Optional;
 public class SedanVehicleService implements VehicleService {
 
     @Autowired
+    @Setter(value = AccessLevel.PACKAGE)
     CheckInOutDAO checkInOutDAO;
 
     @Autowired
+    @Setter(value = AccessLevel.PACKAGE)
     VehicleDAO sedanDAO;
 
     @Autowired
+    @Setter(value = AccessLevel.PACKAGE)
     ParkingAreaDAO parkingAreaDAO;
 
     @Override

@@ -5,11 +5,12 @@ import com.huawei.parkinglot.dao.ParkingAreaDAO;
 import com.huawei.parkinglot.entity.ParkingArea;
 import com.huawei.parkinglot.entity.PriceListDetail;
 import com.huawei.parkinglot.exceptions.RestApiRequestException;
+import lombok.AccessLevel;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +18,7 @@ import java.util.List;
 public class ParkingAreaServiceImpl implements ParkingAreaService {
 
     @Autowired
+    @Setter(value = AccessLevel.PACKAGE)
     ParkingAreaDAO parkingAreaDAO;
 
     @Override
